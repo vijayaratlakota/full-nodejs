@@ -1,14 +1,22 @@
  const express = require('express')
- const { MongoClient } = require('mongodb')
- const dotEnv = require('dotenv')
 
- const port = 5500
+ const dotEnv = require('dotenv')
+ const mongoose = require('mongoose')
+ const bodyParser = require('body-parser')
+ const employeeRoutes = require('./routes/employeeRoutes')
+ const dns = require('dns')
+
+ dns.setServers(['1.1.1.1', '8.8.8.8'])
+
+ const port = process.env.port || 5500
 
  const app = express()
 
+ app.use(bodyParser.json())
+
  dotEnv.config()
 
- MongoClient.connect(process.env.MONGO_URI)
+ mongoose.connect(process.env.MONGO_URI)
     .then(()=>{
         console.log('Connected to mongodb')
     })
@@ -16,35 +24,7 @@
         console.log('Error', error)
     })
 
- const oneMiddle = ((req,res,next)=>{
-    if(10<20){
-        next()
-    }
- })
+    app.use('/employees', employeeRoutes )
 
- const twoMiddle = ((req,res,next)=>{
-    if(10<20){
-        next()
-    }
- })
-
- const threeMiddle = ((req,res,next)=>{
-    if(10<20){
-        next()
-    }
- })
-
- app.get('/home',oneMiddle, (req,res)=>{
-    res.send('Welcome to Homepage')
- })
-
- app.get('/about',twoMiddle,(req,res)=>{
-    res.send('Welcome to about page')
- })
-
- app.get('/user/:123',threeMiddle, (req,res)=>{
-    res.send('Hey 123, Welocme to our website')
- })
-
-
+ 
  app.listen(port, console.log('Server connected successfully to port :'+port))
