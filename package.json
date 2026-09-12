@@ -8,13 +8,14 @@
   "main": "index.js",
   "scripts": {
     "start": "nodemon index"
-    
   },
   "devDependencies": {
     "nodemon": "^3.1.14"
   },
   "dependencies": {
+    "dotenv": "^17.4.2",
     "express": "^5.2.1",
+    "mongodb": "^7.6.0",
     "uuid": "^14.0.2"
   }
 }
