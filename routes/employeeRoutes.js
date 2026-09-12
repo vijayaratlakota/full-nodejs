@@ -6,7 +6,8 @@ const Employee = require('../models/Employee')
 router.post('/add-emp', employeeController.createEmployee)// creating a route and it run createEmployee function which is a controller 
 router.get('/allemployees', employeeController.getEmployee)// created a route that will call getemployee function in controllers
 router.get('/employee/:id', employeeController.singleEmployee)//created a route that will call singleemployee function in controllers
-
+router.put('/update/:id', employeeController.updateEmployee)
+router.delete('/delete/:id', employeeController.deleteEmployee)
 
 
 module.exports = router
